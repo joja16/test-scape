@@ -1,0 +1,90 @@
+# Claude Documentation Table Extraction Configuration
+# Specifically designed to extract the "Essential commands" table from Claude Code quickstart docs
+
+# Browser Configuration
+browser:
+  type: "chromium"
+  headless: false  # Set to true for production
+  timeout: 30000
+  viewport_width: 1920
+  viewport_height: 1080
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+  locale: "en-US"
+  timezone: "America/New_York"
+  javascript_enabled: true
+  images_enabled: false
+
+# Sites to Scrape
+sites:
+  - name: "claude_docs_essential_commands"
+    url: "https://docs.anthropic.com/en/docs/claude-code/quickstart"
+    enabled: true
+    wait_for_selector: "table, .table, [role='table']"
+    wait_timeout: 15000
+    delay_before_scraping: 2000
+    selectors:
+      # Table-specific selectors for Essential Commands table
+      table_rows:
+        selector: "table tr, .table tr, [role='table'] [role='row']"
+        text: false
+        required: true
+        multiple: true
+      table_headers:
+        selector: "table th, .table th, [role='table'] [role='columnheader']"
+        text: true
+        required: true
+        multiple: true
+      command:
+        selector: "td:first-child, [role='cell']:first-child"
+        text: true
+        required: true
+      description:
+        selector: "td:nth-child(2), [role='cell']:nth-child(2)"
+        text: true
+        required: true
+      example:
+        selector: "td:nth-child(3), [role='cell']:nth-child(3)"
+        text: true
+        required: false
+    headers:
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+      "Accept-Language": "en-US,en;q=0.5"
+    custom_scraper: "claude_docs_table"
+
+# Excel Configuration
+excel:
+  output_file: "output/claude_essential_commands.xlsx"
+  template_file: "templates/excel/claude_commands_template.xlsx"
+  worksheet_name: "Essential Commands"
+  auto_fit_columns: true
+  freeze_header_row: true
+  add_timestamp: true
+  column_mappings:
+    command: "Command"
+    description: "Description"
+    example: "Example"
+    _source_url: "Source URL"
+    _scraped_at: "Scraped At"
+
+# Retry Configuration
+retry:
+  max_attempts: 3
+  delay: 1.0
+  backoff_factor: 2.0
+  max_delay: 60.0
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file_path: "logs/claude_docs_scraper.log"
+  max_file_size: "10 MB"
+  backup_count: 5
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{function}:{line} | {message}"
+
+# Performance Settings
+concurrent_sites: 1
+request_delay: 0.5
+
+# Output Settings
+output_directory: "output"
+backup_data: true

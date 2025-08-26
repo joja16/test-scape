@@ -1,0 +1,30 @@
+# Core dependencies
+playwright==1.40.0
+undetected-playwright-python==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+loguru==0.7.2
+tenacity==8.2.3
+aiofiles==23.2.1
+asyncio-throttle==1.0.2
+
+# Excel handling
+pandas==2.1.4
+openpyxl==3.1.2
+xlsxwriter==3.1.9
+
+# Configuration and validation
+PyYAML==6.0.1
+jinja2==3.1.2
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
+pytest-cov==4.1.0
+
+# Development
+black==23.11.0
+isort==5.12.0
+flake8==6.1.0
+mypy==1.7.1

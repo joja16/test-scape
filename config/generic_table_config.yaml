@@ -1,0 +1,53 @@
+backup_data: true
+browser:
+  headless: false
+  images_enabled: false
+  javascript_enabled: true
+  locale: en-US
+  timeout: 30000
+  timezone: America/New_York
+  type: chromium
+  user_agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
+    like Gecko) Chrome/120.0.0.0 Safari/537.36
+  viewport_height: 1080
+  viewport_width: 1920
+concurrent_sites: 1
+excel:
+  add_timestamp: true
+  auto_fit_columns: true
+  column_mappings: {}
+  freeze_header_row: true
+  output_file: output/extracted_tables.xlsx
+  worksheet_name: Extracted Tables
+logging:
+  backup_count: 5
+  file_path: logs/generic_table_scraper.log
+  format: '{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{function}:{line} | {message}'
+  level: INFO
+  max_file_size: 10 MB
+output_directory: output
+request_delay: 1.0
+retry:
+  backoff_factor: 2.0
+  delay: 1.0
+  max_attempts: 3
+  max_delay: 60.0
+sites:
+- custom_scraper: generic_table
+  delay_before_scraping: 2000
+  enabled: true
+  headers:
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+    Accept-Language: en-US,en;q=0.5
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
+      like Gecko) Chrome/120.0.0.0 Safari/537.36
+  name: table_extraction_https_www.w3schools.com_html_html_tables.asp
+  selectors:
+    table_content:
+      required: false
+      selector: table
+      text: true
+  table_index: 0
+  url: https://www.w3schools.com/html/html_tables.asp
+  wait_for_selector: table, .table, [role='table']
+  wait_timeout: 15000

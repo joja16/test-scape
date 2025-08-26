@@ -1,0 +1,107 @@
+# Auto Scrape Configuration
+# This is the main configuration file for the web scraper
+
+# Browser Configuration
+browser:
+  type: "chromium"
+  headless: false  # Set to true for production
+  timeout: 30000
+  viewport_width: 1920
+  viewport_height: 1080
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+  locale: "en-US"
+  timezone: "America/New_York"
+  javascript_enabled: true
+  images_enabled: false
+  # proxy_server: "http://proxy:8080"  # Uncomment if using proxy
+
+# Sites to Scrape
+sites:
+  - name: "example_quotes"
+    url: "http://quotes.toscrape.com"
+    enabled: true
+    wait_for_selector: ".quote"
+    wait_timeout: 10000
+    delay_before_scraping: 1000
+    selectors:
+      quote_text:
+        selector: ".quote .text"
+        text: true
+        required: true
+      author:
+        selector: ".quote .author"
+        text: true
+        required: true
+      tags:
+        selector: ".quote .tags .tag"
+        text: true
+        required: false
+    headers:
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+      "Accept-Language": "en-US,en;q=0.5"
+
+  - name: "example_books"
+    url: "http://books.toscrape.com"
+    enabled: true
+    wait_for_selector: ".product_pod"
+    wait_timeout: 10000
+    delay_before_scraping: 1000
+    selectors:
+      title:
+        selector: ".product_pod h3 a"
+        attribute: "title"
+        required: true
+      price:
+        selector: ".product_pod .price_color"
+        text: true
+        required: true
+        transform: "extract_price"
+      rating:
+        selector: ".product_pod .star-rating"
+        attribute: "class"
+        required: false
+        transform: "extract_rating"
+      availability:
+        selector: ".product_pod .instock"
+        text: true
+        required: false
+
+# Excel Configuration
+excel:
+  output_file: "output/scraped_data.xlsx"
+  template_file: "templates/excel/default_template.xlsx"
+  worksheet_name: "ScrapedData"
+  auto_fit_columns: true
+  freeze_header_row: true
+  add_timestamp: true
+  column_mappings:
+    quote_text: "Quote"
+    author: "Author"
+    tags: "Tags"
+    title: "Book Title"
+    price: "Price"
+    rating: "Rating"
+    availability: "Availability"
+
+# Retry Configuration
+retry:
+  max_attempts: 3
+  delay: 1.0
+  backoff_factor: 2.0
+  max_delay: 60.0
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file_path: "logs/scraper.log"
+  max_file_size: "10 MB"
+  backup_count: 5
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{function}:{line} | {message}"
+
+# Performance Settings
+concurrent_sites: 2
+request_delay: 1.0
+
+# Output Settings
+output_directory: "output"
+backup_data: true
