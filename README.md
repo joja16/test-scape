@@ -2,6 +2,21 @@
 
 A Python web scraping automation program using Playwright to extract information from websites and populate Excel files with high accuracy. Optimized for Chrome on Windows 11.
 
+## 📥 Download
+
+### Windows Executable (Recommended)
+Download the latest Windows executable from the [Releases page](https://github.com/joja16/test-scape/releases).
+
+**Latest Release:** [AutoScrape.exe v1.0.0](https://github.com/joja16/test-scape/releases/latest/download/AutoScrape.exe) (395 MB)
+
+#### Installation Steps:
+1. Download `AutoScrape.exe` from the releases page
+2. Place the executable in your desired folder
+3. Double-click to run (may require admin privileges)
+4. On first run, the application will install necessary browser components
+
+**Note:** Windows Defender may flag the executable on first run. This is normal for unsigned executables. Click "More info" → "Run anyway" to proceed.
+
 ## Features
 
 - 🚀 **High Performance**: Async web scraping with Playwright

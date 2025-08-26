@@ -167,7 +167,7 @@ function New-Resources {
         New-Item -ItemType Directory -Path $BuildDir -Force | Out-Null
     }
     
-    @"
+    $versionContent = @'
 VSVersionInfo(
   ffi=FixedFileInfo(
     filevers=(1, 0, 0, 0),
@@ -183,21 +183,22 @@ VSVersionInfo(
     StringFileInfo(
       [
         StringTable(
-          u'040904B0',
-          [StringStruct(u'CompanyName', u'Auto Scrape Team'),
-           StringStruct(u'FileDescription', u'Auto Scrape - Web Scraping Automation'),
-           StringStruct(u'FileVersion', u'1.0.0.0'),
-           StringStruct(u'InternalName', u'AutoScrape'),
-           StringStruct(u'LegalCopyright', u'Copyright (c) 2024 Auto Scrape Team'),
-           StringStruct(u'OriginalFilename', u'AutoScrape.exe'),
-           StringStruct(u'ProductName', u'Auto Scrape'),
-           StringStruct(u'ProductVersion', u'1.0.0.0')])
+          u''040904B0'',
+          [StringStruct(u''CompanyName'', u''Auto Scrape Team''),
+           StringStruct(u''FileDescription'', u''Auto Scrape - Web Scraping Automation''),
+           StringStruct(u''FileVersion'', u''1.0.0.0''),
+           StringStruct(u''InternalName'', u''AutoScrape''),
+           StringStruct(u''LegalCopyright'', u''Copyright (c) 2024 Auto Scrape Team''),
+           StringStruct(u''OriginalFilename'', u''AutoScrape.exe''),
+           StringStruct(u''ProductName'', u''Auto Scrape''),
+           StringStruct(u''ProductVersion'', u''1.0.0.0'')])
       ]
     ),
-    VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
+    VarFileInfo([VarStruct(u''Translation'', [1033, 1200])])
   ]
 )
-"@ | Out-File -FilePath $versionFile -Encoding UTF8
+'@
+    $versionContent | Out-File -FilePath $versionFile -Encoding UTF8
     
     Write-Success "Resource files created"
 }
