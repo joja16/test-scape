@@ -15,7 +15,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
+# dist/  # Commented out to allow dist folder for releases
 downloads/
 eggs/
 .eggs/
@@ -40,7 +40,8 @@ venv_build/
 *.manifest
 *.spec
 build/
-dist/
+# Allow dist folder for releases
+# dist/
 
 # Testing
 .coverage
